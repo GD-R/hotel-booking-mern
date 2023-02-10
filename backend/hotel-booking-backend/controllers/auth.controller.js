@@ -88,7 +88,7 @@ export const login = async (req, res, next)=>{
 
             // setting cookie for 3 days
             res.cookie("authToken", token, {
-                expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+                maxAge: 7 * 24 * 60 * 60 * 1000,
                 httpOnly: true,
                 sameSite: "None",
                 
