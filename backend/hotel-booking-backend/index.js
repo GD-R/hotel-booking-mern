@@ -29,11 +29,10 @@ mongoose.connection.on("disconnected", () => {
   console.log("mongodb disconnected!");
 });
 
-let whitelist = ['http://localhost:3000',  "https://hotel-admin-dashboard.netlify.app", 
-      "https://shivanand-hotel-booking.netlify.app"]
+let whitelist = ['http://localhost:3000', "https://hotel-admin-dashboard.netlify.app", "https://shivanand-hotel-booking.netlify.app"]
 let corsOptions = {
   origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
+    if (['http://localhost:3000', "https://hotel-admin-dashboard.netlify.app", "https://shivanand-hotel-booking.netlify.app"].indexOf(origin) !== -1) {
       callback(null, true)
     } else {
       callback(new Error('Not allowed by CORS'))
@@ -48,7 +47,17 @@ let corsOptions = {
 app.use(express.json())
 // to accept nested json values
 app.use(express.urlencoded({extended: true}))
-app.use(cors(corsOptions));
+app.use(cors({
+  origin: function (origin, callback) {
+    if (['http://localhost:3000', "https://hotel-admin-dashboard.netlify.app", "https://shivanand-hotel-booking.netlify.app"].indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
+  credentials: true,
+  optionsSuccessStatus: 200
+}));
 
 app.use(cookieParser())
 
