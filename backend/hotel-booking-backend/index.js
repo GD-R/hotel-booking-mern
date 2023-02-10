@@ -29,21 +29,26 @@ mongoose.connection.on("disconnected", () => {
   console.log("mongodb disconnected!");
 });
 
+let whitelist = ['http://localhost:3000',  "https://hotel-admin-dashboard.netlify.app", 
+      "https://shivanand-hotel-booking.netlify.app"]
+let corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
+  credentials: true,
+  optionsSuccessStatus: 200
+}
+
 /** @middlewares */ 
 // to accept json date from frontend
 app.use(express.json())
 // to accept nested json values
 app.use(express.urlencoded({extended: true}))
-app.use(
-  cors({
-    origin: [
-      "http://localhost:3000", 
-      "https://hotel-admin-dashboard.netlify.app", 
-      "https://shivanand-hotel-booking.netlify.app"
-    ],
-    credentials: true
-  })
-  );
+app.use(cors(corsOptions));
 
 app.use(cookieParser())
 
