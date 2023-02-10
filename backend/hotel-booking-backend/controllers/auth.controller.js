@@ -82,7 +82,7 @@ export const login = async (req, res, next)=>{
                 },
                 config.JWT_SECRET,
                 {
-                    expiresIn: "1d"
+                    expiresIn: "7d"
                 }
             )
 
