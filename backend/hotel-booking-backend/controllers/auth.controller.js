@@ -91,14 +91,14 @@ export const login = async (req, res, next)=>{
                 expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
                 httpOnly: true,
                 sameSite: "None",
-                secure: true,
+                
             })
 
             // removing password before sending the user
             // user.password = undefined
             // user.isAdmin = undefined
             const { password, isAdmin, ...otherDetails } = user._doc   //another way
-           return res.status(200).json({
+            res.status(200).json({
                 success: true,
                 message: "Logged in successfully",
                 details: otherDetails, 
