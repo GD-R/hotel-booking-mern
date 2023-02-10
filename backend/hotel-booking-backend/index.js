@@ -49,7 +49,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(cors({
   origin: function (origin, callback) {
-    if (['http://localhost:3000', "https://hotel-admin-dashboard.netlify.app", "https://shivanand-hotel-booking.netlify.app"].indexOf(origin) !== -1) {
+    if (['http://localhost:3000', "https://hotel-admin-dashboard.netlify.app", "https://shivanand-hotel-booking.netlify.app"].indexOf(origin) !== -1 || !origin) {
       callback(null, true)
     } else {
       callback(new Error('Not allowed by CORS'))
