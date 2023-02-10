@@ -32,7 +32,7 @@ mongoose.connection.on("disconnected", () => {
 let whitelist = ['http://localhost:3000', "https://hotel-admin-dashboard.netlify.app", "https://shivanand-hotel-booking.netlify.app"]
 let corsOptions = {
   origin: function (origin, callback) {
-    if (['http://localhost:3000', "https://hotel-admin-dashboard.netlify.app", "https://shivanand-hotel-booking.netlify.app"].indexOf(origin) !== -1) {
+    if (['http://localhost:3000', "https://hotel-admin-dashboard.netlify.app", "https://shivanand-hotel-booking.netlify.app"].indexOf(origin) !== -1 || !origin) {
       callback(null, true)
     } else {
       callback(new Error('Not allowed by CORS'))
